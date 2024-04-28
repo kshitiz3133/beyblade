@@ -56,6 +56,18 @@ class Call extends StatelessWidget {
               },
               child: Text('Backward'),
             ),
+
+           SizedBox(height: 40,),
+
+            ElevatedButton(
+              onPressed: () {
+                stop_backward();
+                stop_forward();
+                stop_right();
+                stop_left();
+              },
+              child: Text('Stop'),
+            ),
           ],
         ),
       ),
