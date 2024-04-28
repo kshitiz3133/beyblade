@@ -1,3 +1,4 @@
+import 'package:beyblade/modelpage.dart';
 import 'package:flutter/material.dart';
 import 'package:sensors_plus/sensors_plus.dart';
 import 'dart:async';
@@ -13,8 +14,12 @@ class _AccelerometerExampleState extends State<AccelerometerExample> with Single
 // List to store accelerometer data
   List<AccelerometerEvent> _accelerometerValues = [];
 
+  Call goBeyblade = Call();
+
 // StreamSubscription for accelerometer events
   late StreamSubscription<AccelerometerEvent> _accelerometerSubscription;
+  late double _lastPrintedX = 0.0; // Store the last printed x-value
+  late double _lastPrintedY = 0.0; // Store the last printed x-value
 
   @override
   void initState() {
@@ -23,17 +28,74 @@ class _AccelerometerExampleState extends State<AccelerometerExample> with Single
       setState(() {
         // Update the _accelerometerValues list with the latest event
         _accelerometerValues = [event];
-        if(_accelerometerValues[0].x.toInt() > -0.5 && _accelerometerValues[0].x.toInt() < 0.5){
-          print("center");
+
+        if ((_accelerometerValues[0].x - _lastPrintedX).abs() >= 1) {
+          // Update the last printed x-value
+          _lastPrintedX = _accelerometerValues[0].x;
+
+          // Print direction based on x-value
+          if (_lastPrintedX > -1 && _lastPrintedX < 1) {
+            goBeyblade.stop_left();
+            goBeyblade.stop_right();
+            print("center");
+          } else if (_lastPrintedX < -1) {
+            goBeyblade.right();
+            print("right");
+          } else {
+            goBeyblade.left();
+            print("left");
+          }
         }
-        else  if(_accelerometerValues[0].x.toInt() < -0.5){
-          print("right");
-        }
-        else{
-          print("left");
-        }
-        // print(_accelerometerValues);
+
+
+        // if ((_accelerometerValues[0].y - _lastPrintedY).abs() >= 0.2) {
+        //   // Update the last printed x-value
+        //   _lastPrintedY = _accelerometerValues[0].y;
+        //
+        //   // Print direction based on x-value
+        //   if (_lastPrintedY > -0.1 && _lastPrintedY < 0.1) {
+        //     goBeyblade.stop_forward();
+        //     goBeyblade.stop_backward();
+        //     print("center");
+        //   } else if (_lastPrintedY < -0.1) {
+        //     goBeyblade.forward();
+        //     print("down");
+        //   } else {
+        //     goBeyblade.backward();
+        //     print("up");
+        //   }
+        // }
       });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      //   if(_accelerometerValues[0].x.toInt() > -0.5 && _accelerometerValues[0].x.toInt() < 0.5){
+      //     print("center");
+      //   }
+      //   else  if(_accelerometerValues[0].x.toInt() < -0.5){
+      //     print("right");
+      //   }
+      //   else{
+      //     print("left");
+      //   }
+      //   // print(_accelerometerValues);
+      // });
     });
 
     // Subscribe to accelerometer events
@@ -52,7 +114,7 @@ class _AccelerometerExampleState extends State<AccelerometerExample> with Single
     return Scaffold(
       body: AnimatedAlign(
         duration: Duration(milliseconds: 300),
-        alignment: Alignment(-_accelerometerValues[0].x/2, _accelerometerValues[0].y/10),
+        alignment: Alignment(-_accelerometerValues[0].x/5, _accelerometerValues[0].y/10),
         child: CircleAvatar(radius: 100,
           child: Center(
             child: Column(
