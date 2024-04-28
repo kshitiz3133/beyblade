@@ -40,8 +40,7 @@ class _AccelerometerExampleState extends State<AccelerometerExample> with Single
             print("c");
             goBeyblade.stop_left();
             goBeyblade.stop_right();
-            goBeyblade.stop_forward();
-            goBeyblade.stop_backward();
+
           }
           if (_lastPrintedX < -1.5) {
             print("R");
@@ -56,8 +55,7 @@ class _AccelerometerExampleState extends State<AccelerometerExample> with Single
           if (_lastPrintedY > -1.5 &&
               _lastPrintedY < 1.5) {
             print("center");
-            goBeyblade.stop_left();
-            goBeyblade.stop_right();
+
             goBeyblade.stop_forward();
             goBeyblade.stop_backward();
           }
@@ -195,7 +193,14 @@ class _AccelerometerExampleState extends State<AccelerometerExample> with Single
       body: AnimatedAlign(
         duration: Duration(milliseconds: 300),
         alignment: Alignment(-_accelerometerValues[0].x/5, _accelerometerValues[0].y/10),
-        child: CircleAvatar(radius: 100,
+        child:
+        // Container(
+        //   height: 100,
+        //     width: 100,
+        //     child:
+        //     Image.asset("asset/beyblade.png"))
+
+        CircleAvatar(radius: 100,
           child: Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
