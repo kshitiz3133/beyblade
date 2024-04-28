@@ -23,6 +23,16 @@ class _AccelerometerExampleState extends State<AccelerometerExample> with Single
       setState(() {
         // Update the _accelerometerValues list with the latest event
         _accelerometerValues = [event];
+        if(_accelerometerValues[0].x.toInt() > -0.5 && _accelerometerValues[0].x.toInt() < 0.5){
+          print("center");
+        }
+        else  if(_accelerometerValues[0].x.toInt() < -0.5){
+          print("right");
+        }
+        else{
+          print("left");
+        }
+        // print(_accelerometerValues);
       });
     });
 
@@ -43,7 +53,7 @@ class _AccelerometerExampleState extends State<AccelerometerExample> with Single
       body: AnimatedAlign(
         duration: Duration(milliseconds: 300),
         alignment: Alignment(-_accelerometerValues[0].x/2, _accelerometerValues[0].y/10),
-        child: CircleAvatar(radius: 150,
+        child: CircleAvatar(radius: 100,
           child: Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
