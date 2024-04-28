@@ -6,7 +6,8 @@ import 'package:http/http.dart' as http;
 class Call extends StatelessWidget {
   Call({Key? key}) : super(key: key);
 
-  String ipAddress = "192.168.189.96";
+  // String ipAddress = "192.168.189.96";
+  String ipAddress = "10.21.81.88";
 
   @override
   Widget build(BuildContext context) {
@@ -138,7 +139,7 @@ class Call extends StatelessWidget {
   void stop_backward() async {
     var body = jsonEncode({ 'Parameters': {}});
     http.put(Uri.parse(
-        'http://${ipAddress}:30010/remote/preset/NewRemoteControlPreset/function/Stop Backward'),
+        'http://${ipAddress}:30010/remote/preset/NewRemoteControlPreset/function/Stop Backword'),
         body: body);
   }
 

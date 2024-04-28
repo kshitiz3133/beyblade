@@ -29,42 +29,122 @@ class _AccelerometerExampleState extends State<AccelerometerExample> with Single
         // Update the _accelerometerValues list with the latest event
         _accelerometerValues = [event];
 
-        if ((_accelerometerValues[0].x - _lastPrintedX).abs() >= 1) {
+        if ((_accelerometerValues[0].x - _lastPrintedX).abs() >= 1 || (_accelerometerValues[0].y - _lastPrintedY).abs() >= 0.5) {
           // Update the last printed x-value
           _lastPrintedX = _accelerometerValues[0].x;
+          _lastPrintedY = _accelerometerValues[0].y;
 
-          // Print direction based on x-value
-          if (_lastPrintedX > -1 && _lastPrintedX < 1) {
+
+          if (_lastPrintedX > -1.5 &&
+              _lastPrintedX < 1.5) {
+            print("c");
             goBeyblade.stop_left();
             goBeyblade.stop_right();
-            print("center");
-          } else if (_lastPrintedX < -1) {
-            goBeyblade.right();
-            print("right");
-          } else {
-            goBeyblade.left();
-            print("left");
+            goBeyblade.stop_forward();
+            goBeyblade.stop_backward();
           }
+          if (_lastPrintedX < -1.5) {
+            print("R");
+            goBeyblade.right();
+          }
+          if (_lastPrintedX > 1.5) {
+            print("L");
+            goBeyblade.left();
+          }
+
+
+          if (_lastPrintedY > -1.5 &&
+              _lastPrintedY < 1.5) {
+            print("center");
+            goBeyblade.stop_left();
+            goBeyblade.stop_right();
+            goBeyblade.stop_forward();
+            goBeyblade.stop_backward();
+          }
+          if (_lastPrintedY < -1.5) {
+            print("F");
+            goBeyblade.forward();
+          }
+          if (_lastPrintedY > 1.5) {
+            print("B");
+            goBeyblade.backward();
+          }
+
         }
 
 
-        // if ((_accelerometerValues[0].y - _lastPrintedY).abs() >= 0.2) {
-        //   // Update the last printed x-value
-        //   _lastPrintedY = _accelerometerValues[0].y;
-        //
-        //   // Print direction based on x-value
-        //   if (_lastPrintedY > -0.1 && _lastPrintedY < 0.1) {
-        //     goBeyblade.stop_forward();
-        //     goBeyblade.stop_backward();
-        //     print("center");
-        //   } else if (_lastPrintedY < -0.1) {
-        //     goBeyblade.forward();
-        //     print("down");
-        //   } else {
-        //     goBeyblade.backward();
-        //     print("up");
-        //   }
-        // }
+
+/*
+        if ((_accelerometerValues[0].x - _lastPrintedX).abs() >= 1 || (_accelerometerValues[0].y - _lastPrintedY).abs() >= 0.5) {
+          // Update the last printed x-value
+          _lastPrintedX = _accelerometerValues[0].x;
+          _lastPrintedY = _accelerometerValues[0].y;
+
+          // Print direction based on x-value
+          if (_lastPrintedX > -1 && _lastPrintedX < 1){
+            goBeyblade.stop_left();
+            goBeyblade.stop_right();
+            goBeyblade.stop_backward();
+            goBeyblade.stop_forward();
+
+            if(_lastPrintedY > -2 && _lastPrintedY < 2){
+              goBeyblade.stop_backward();
+              goBeyblade.stop_forward();
+              goBeyblade.stop_left();
+              goBeyblade.stop_right();
+            }
+            else if(_lastPrintedY < -2){
+              goBeyblade.forward();
+            }
+            else if(_lastPrintedY > 2){
+              goBeyblade.backward();
+            }
+            // else{
+            //   goBeyblade.backward();
+            // }
+
+
+            print("center");
+          } else if (_lastPrintedX < -1) {
+            goBeyblade.right();
+
+            if(_lastPrintedY > -2 && _lastPrintedY < 2){
+              goBeyblade.stop_backward();
+              goBeyblade.stop_forward();
+            }
+            else if(_lastPrintedY < -2){
+              goBeyblade.forward();
+            }
+            else if(_lastPrintedY > 2){
+              goBeyblade.backward();
+            }
+            // else{
+            //   goBeyblade.backward();
+            // }
+
+            print("right");
+          } else {
+            goBeyblade.left();
+
+            if(_lastPrintedY > -2 && _lastPrintedY < 2){
+              goBeyblade.stop_backward();
+              goBeyblade.stop_forward();
+            }
+            else if(_lastPrintedY < -2){
+              goBeyblade.forward();
+            }
+
+            // else{
+            //   goBeyblade.backward();
+            // }
+
+            print("left");
+          }
+        }
+*/
+
+
+
       });
 
 
