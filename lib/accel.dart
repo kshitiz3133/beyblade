@@ -10,7 +10,8 @@ class AccelerometerExample extends StatefulWidget {
   State<AccelerometerExample> createState() => _AccelerometerExampleState();
 }
 
-class _AccelerometerExampleState extends State<AccelerometerExample> with SingleTickerProviderStateMixin{
+class _AccelerometerExampleState extends State<AccelerometerExample>
+    with SingleTickerProviderStateMixin {
 // List to store accelerometer data
   List<AccelerometerEvent> _accelerometerValues = [];
 
@@ -29,18 +30,16 @@ class _AccelerometerExampleState extends State<AccelerometerExample> with Single
         // Update the _accelerometerValues list with the latest event
         _accelerometerValues = [event];
 
-        if ((_accelerometerValues[0].x - _lastPrintedX).abs() >= 1 || (_accelerometerValues[0].y - _lastPrintedY).abs() >= 0.5) {
+        if ((_accelerometerValues[0].x - _lastPrintedX).abs() >= 1 ||
+            (_accelerometerValues[0].y - _lastPrintedY).abs() >= 0.5) {
           // Update the last printed x-value
           _lastPrintedX = _accelerometerValues[0].x;
           _lastPrintedY = _accelerometerValues[0].y;
 
-
-          if (_lastPrintedX > -1.5 &&
-              _lastPrintedX < 1.5) {
+          if (_lastPrintedX > -1.5 && _lastPrintedX < 1.5) {
             print("c");
             goBeyblade.stop_left();
             goBeyblade.stop_right();
-
           }
           if (_lastPrintedX < -1.5) {
             print("R");
@@ -51,9 +50,7 @@ class _AccelerometerExampleState extends State<AccelerometerExample> with Single
             goBeyblade.left();
           }
 
-
-          if (_lastPrintedY > -1.5 &&
-              _lastPrintedY < 1.5) {
+          if (_lastPrintedY > -1.5 && _lastPrintedY < 1.5) {
             print("center");
 
             goBeyblade.stop_forward();
@@ -67,10 +64,7 @@ class _AccelerometerExampleState extends State<AccelerometerExample> with Single
             print("B");
             goBeyblade.backward();
           }
-
         }
-
-
 
 /*
         if ((_accelerometerValues[0].x - _lastPrintedX).abs() >= 1 || (_accelerometerValues[0].y - _lastPrintedY).abs() >= 0.5) {
@@ -140,28 +134,7 @@ class _AccelerometerExampleState extends State<AccelerometerExample> with Single
           }
         }
 */
-
-
-
       });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
       //   if(_accelerometerValues[0].x.toInt() > -0.5 && _accelerometerValues[0].x.toInt() < 0.5){
       //     print("center");
@@ -177,7 +150,6 @@ class _AccelerometerExampleState extends State<AccelerometerExample> with Single
     });
 
     // Subscribe to accelerometer events
-
   }
 
   @override
@@ -190,40 +162,59 @@ class _AccelerometerExampleState extends State<AccelerometerExample> with Single
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: AnimatedAlign(
-        duration: Duration(milliseconds: 300),
-        alignment: Alignment(-_accelerometerValues[0].x/5, _accelerometerValues[0].y/10),
-        child:
-        // Container(
-        //   height: 100,
-        //     width: 100,
-        //     child:
-        //     Image.asset("asset/beyblade.png"))
+      body: Stack(children: [
 
-        CircleAvatar(radius: 100,
-          child: Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Text(
-                  'Accelerometer Data:',
-                  style: TextStyle(fontSize: 20),
-                ),
-                SizedBox(height: 10),
-                if (_accelerometerValues.isNotEmpty)
+        // ClipRRect(
+        //   child: Container(
+        //     height: double.infinity,
+        //     width: double.infinity,
+        //     decoration: BoxDecoration(
+        //       color: Colors.blue, // Change the color as per your requirement
+        //       shape: BoxShape
+        //           .rectangle, // Change to BoxShape.circle for a circle, BoxShape.rectangle for an oval
+        //       borderRadius: BorderRadius.circular(
+        //           150), // Adjust the value to change the oval shape
+        //     ),
+        //   ),
+        // ),
+
+        AnimatedAlign(
+          duration: Duration(milliseconds: 300),
+          alignment: Alignment(
+              -_accelerometerValues[0].x / 10, _accelerometerValues[0].y / 10),
+          child:
+          // Container(
+          //   height: 100,
+          //     width: 100,
+          //     child:
+          //     Image.asset("asset/beyblade.png"))
+
+          CircleAvatar(
+            radius: 100,
+            child: Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
                   Text(
-                    'X: ${_accelerometerValues[0].x.toStringAsFixed(2)}, '
-                        'Y: ${_accelerometerValues[0].y.toStringAsFixed(2)}, '
-                        'Z: ${_accelerometerValues[0].z.toStringAsFixed(2)}',
-                    style: TextStyle(fontSize: 16),
-                  )
-                else
-                  Text('No data available', style: TextStyle(fontSize: 16)),
-              ],
+                    'Accelerometer Data:',
+                    style: TextStyle(fontSize: 20),
+                  ),
+                  SizedBox(height: 10),
+                  if (_accelerometerValues.isNotEmpty)
+                    Text(
+                      'X: ${_accelerometerValues[0].x.toStringAsFixed(2)}, '
+                          'Y: ${_accelerometerValues[0].y.toStringAsFixed(2)}, '
+                          'Z: ${_accelerometerValues[0].z.toStringAsFixed(2)}',
+                      style: TextStyle(fontSize: 16),
+                    )
+                  else
+                    Text('No data available', style: TextStyle(fontSize: 16)),
+                ],
+              ),
             ),
           ),
         ),
-      ),
+      ]),
     );
   }
 }
